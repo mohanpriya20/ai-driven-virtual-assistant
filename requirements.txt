@@ -1,0 +1,9 @@
+flask
+opencv-python
+tensorflow
+transformers
+torch
+gtts
+pillow
+tensorflow_hub
+ultralytics
