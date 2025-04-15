@@ -1,1 +1,29 @@
-<html><body><h1>AI Virtual Assistant</h1></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Visual Narrator</title>
+    <script>
+        async function pollNarration() {
+            while (true) {
+                const res = await fetch('/narration');
+                const data = await res.json();
+                const narration = data.narration;
+                document.getElementById('narration').innerText = narration;
+
+                const utter = new SpeechSynthesisUtterance(narration);
+                utter.lang = 'en-US';
+                window.speechSynthesis.speak(utter);
+
+                await new Promise(r => setTimeout(r, 8000));
+            }
+        }
+        window.onload = pollNarration;
+    </script>
+</head>
+<body>
+    <h1>🎥 <b>Live Narration from AI Assistant</b></h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480" style="border: 2px solid #888;">
+    <h3>Narration:</h3>
+    <p id="narration" style="font-size: 18px; font-style: italic;"></p>
+</body>
+</html>
